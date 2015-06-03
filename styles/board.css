@@ -1,0 +1,680 @@
+button{
+    background-image: linear-gradient(#fafafa, #fafafa 38%, #f2f2f2);
+    box-shadow: 0 1px 10px rgba(29, 45, 78, 0.23), 1px 6px 0 rgba(30, 47, 82, 0.08), 1px 2px 4px 1px rgba(18, 18, 18, 0.26);
+}
+
+a:hover, button:hover {
+    -webkit-transform: scale(1.05);
+}
+a:active, button:active {
+    -webkit-transform: scale(1.1);
+}
+
+[data-current_player="Black"] [data-player_color="Black"]:hover > div:after,
+[data-current_player="White"] [data-player_color="White"]:hover > div:after {
+    font-size: 1vw;
+    content: " your turn";
+}
+
+body {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    top: 0;
+    right: 0;
+    overflow: hidden;
+
+    background-color: hsl(0, 100%, 100%);
+    display: -webkit-box;      /* OLD - iOS 6-, Safari 3.1-6 */
+    display: -moz-box;         /* OLD - Firefox 19- (buggy but mostly works) */
+    display: -ms-flexbox;      /* TWEENER - IE 10 */
+    display: -webkit-flex;     /* NEW - Chrome */
+    display: flex;             /* NEW, Spec - Opera 12.1, Firefox 20+ */
+}
+
+a, a:visited{
+    color: gray;
+}
+
+
+.darkTheme #board{
+    box-shadow: 2px 6px 22px rgba(0, 0, 0, 0.34), inset 0 0 6px rgba(0, 0, 0, 1);
+}
+
+.darkTheme, .darkTheme .controls {
+    background: rgb(42, 48, 56);
+}
+
+.darkTheme, .darkTheme [data-toggle], .darkTheme input, .darkTheme select{
+    color: gray;
+}
+
+
+.darkTheme, .darkTheme [data-toggle], .darkTheme input, .darkTheme select, .darkTheme textarea{
+    text-shadow: none;
+}
+
+#moreOptionsContainer table td:first-child {
+    text-align: left;
+}
+
+#moreOptionsContainer table {
+    margin: 0 auto;
+}
+/*
+ #computerOptions{
+    display: none;
+}
+
+.computerOpponent #computerOptions{
+    display: block;
+}
+*/
+
+#boardContainer{
+}
+
+#layoutTable{
+    width: 100%;
+    height: 100%;
+}
+
+#layoutTable td{
+    position: relative;
+}
+
+.tableContainer{
+    display: -webkit-box;      /* OLD - iOS 6-, Safari 3.1-6 */
+    display: -moz-box;         /* OLD - Firefox 19- (buggy but mostly works) */
+    display: -ms-flexbox;      /* TWEENER - IE 10 */
+    display: -webkit-flex;     /* NEW - Chrome */
+    display: flex;             /* NEW, Spec - Opera 12.1, Firefox 20+ */
+
+
+    flex: 1 1 auto;
+    -webkit-flex-grow: 1;
+    -webkit-flex-shrink: 1;
+    -webkit-flex-basis: auto;
+
+    -webkit-box-flex: 1;      /* OLD - iOS 6-, Safari 3.1-6 */
+    -moz-box-flex: 1;         /* OLD - Firefox 19- */
+    width: 20%;               /* For old syntax, otherwise collapses. */
+    -webkit-flex: 1;          /* Chrome */
+    -ms-flex: 1;              /* IE 10 */
+    flex: 1;                  /* NEW, Spec - Opera 12.1, Firefox 20+ */
+
+    top-bottom: 10px;
+/*    margin-bottom: 70px;
+*/
+}
+
+.tableContainer > div{
+    flex: 1 1 0;
+
+    display: -webkit-box;      /* OLD - iOS 6-, Safari 3.1-6 */
+    display: -moz-box;         /* OLD - Firefox 19- (buggy but mostly works) */
+    display: -ms-flexbox;      /* TWEENER - IE 10 */
+
+    box-align: center;
+    box-pack: center;
+    transition: all 0.1s ease-out 0s;
+
+    -webkit-flex-grow: 1;
+    -webkit-flex-shrink: 1;
+    -webkit-flex-basis: 0;
+    -webkit-box-align: center;
+    -webkit-box-pack: center;
+}
+
+#boardContainer{
+    flex: 0 1 auto;
+    -webkit-flex-grow: 0;
+    -webkit-flex-shrink: 1;
+    -webkit-flex-basis: auto;
+}
+
+/* apply a natural box layout model to all elements */
+.tableContainer *{
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+
+.row {
+    height: 12.5%;
+}
+
+.piece {
+    width: 12.3%;
+    height: 100%;
+}
+
+#board {
+    user-select: none;
+    cursor: default;
+    display: inline-block;
+    background: #2AB92A;
+    box-shadow: 4px 4px 8px hsla(0, 0%, 0%, 0.2), inset 0 0 6px hsla(0, 0%, 0%, 1);
+    border-style: solid;
+    border-width: 1vmin;
+    border-top-color: hsla(0, 0%, 0%, 0.25);
+    border-left-color: hsla(0, 0%, 0%, 0.3);
+    border-bottom-color: hsla(0, 0%, 0%, 0.35);
+    border-right-color: hsla(0, 0%, 0%, 0.33);
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+#board, .playerInfo, .controls {
+    border-radius: 7px;
+}
+
+
+
+
+[data-player_color="Black"] {
+    background-color: rgb(88, 87, 87);
+    /* Old browsers*/
+}
+
+[data-player_color="White"] {
+    background-color: #ffffff; /* Old browsers */
+}
+
+.playerInfo{
+    min-width: 20vmin;
+    width: 80%;
+    height: 11vmin;
+    border: 0;
+    text-align: center;
+    display: table;
+    vertical-align: middle;
+    background-image: none;
+    box-shadow: 0 0 3px rgb(117, 117, 117);
+    max-width: 25vw;
+}
+
+
+
+
+.row:first-child .piece {
+    border-top-width: 0;
+}
+
+.row .piece:last-child {
+    border-right-width: 0;
+}
+
+.piece > div {
+    transition: opacity 0.5s;
+    border-radius: 600px;
+    position: absolute;
+    top: 5%;
+    left: 5%;
+    right: 5%;
+    bottom: 5%;
+    border-width: 1px;
+    border-style: solid;
+}
+
+.empty > div {
+    transition: opacity 0.5s, left 0.5s, right 0.5s, top 0.5s, bottom 0.5s;
+    display: none;
+    top: 30%;
+    left: 30%;
+    right: 30%;
+    bottom: 30%;
+    opacity: 0;
+}
+
+
+
+[data-winner="White"] .Black > div, [data-winner="Black"] .White > div {
+    top: 9%;
+    left: 9%;
+    right: 9%;
+    bottom: 9%;
+}
+
+[data-winner="White"] .White > div,
+[data-winner="Black"] .Black > div {
+    top: 4%;
+    left: 4%;
+    right: 4%;
+    bottom: 4%;
+    animation-duration: 1s;
+       -moz-animation-duration: 1s;
+        -ms-animation-duration: 1s;
+         -o-animation-duration: 1s;
+            animation-duration: 1s;
+    animation-fill-mode: both;
+       -moz-animation-fill-mode: both;
+        -ms-animation-fill-mode: both;
+         -o-animation-fill-mode: both;
+            animation-fill-mode: both;
+    animation-name: pulse;
+}
+
+@keyframes fadeInDown {
+    0% {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+.piece {
+    border-top-width: 2px;
+    display: block;
+    float: left;
+    border: 1px solid hsla(0, 0%, 0%, 0.12);
+    border-top-color: hsla(0, 0%, 0%, 0.08);
+    border-left-color: hsla(0, 0%, 0%, 0.09);
+    padding: 0;
+    border-bottom-width: 0;
+    border-left-width: 0;
+    position: relative;
+    font-weight: bold;
+    text-align: center;
+    color: rgba(0,0,0,0);
+    font-size: 3vmin;
+    transition: color 0.5s ease-out, font-size 0.1s ease-out;
+}
+
+
+.show_count .Black, .show_count .White{
+    font-size: 5vmin;
+    color: #FF4DE3;
+    text-shadow: 0 0 2px #FF4DE3;
+}
+
+
+#moreOptionsContainer {
+    display: none;
+    padding: 38px 0px 0px 0px;
+    box-shadow: 0 -6px 12px rgba(0, 0, 0, 0.28);
+    position: absolute;
+    left: 0;
+    bottom: 55px;
+    right: 0;
+    background: white;
+}
+
+.moreOptions #moreOptionsContainer {
+    display: block;
+    padding: 4%;
+    background: hsla(0, 100%, 100%, 0.96);
+    border: 1px solid rgb(126, 126, 126);
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.41);
+    margin: 2%;
+}
+.moreOptions.darkTheme #moreOptionsContainer {
+    background: rgba(29, 29, 29, 0.96);
+}
+#moreOptionsContainer table td{
+    padding-right: 20px;
+}
+
+.Black > div, .White > div {
+    box-shadow: 1px 3px 9px hsla(0, 0%, 0%, 0.29);
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+        transform: translateY(0);
+    }
+    50% {
+        transform: scale(1.1);
+    }
+    100% {
+        transform: scale(1);
+        transform: translateY(0);
+    }
+}
+
+@keyframes pulse2 {
+    0% {
+        transform: scale(1);
+        transform: translateY(0);
+    }
+    50% {
+        transform: scale(1.1);
+    }
+    100% {
+        transform: scale(1);
+        transform: translateY(0);
+    }
+}
+
+.pulse{
+    transition: background-color 1.2s ease-out;
+    animation-duration: 1s;
+       -moz-animation-duration: 1s;
+        -ms-animation-duration: 1s;
+         -o-animation-duration: 1s;
+            animation-duration: 1s;
+    animation-fill-mode: both;
+       -moz-animation-fill-mode: both;
+        -ms-animation-fill-mode: both;
+         -o-animation-fill-mode: both;
+            animation-fill-mode: both;
+    animation-name: pulse;
+}
+
+.White > div , .Black > div {
+    transition: background-color 1.2s ease-out;
+    animation-duration: 1s;
+       -moz-animation-duration: 1s;
+        -ms-animation-duration: 1s;
+         -o-animation-duration: 1s;
+            animation-duration: 1s;
+    animation-fill-mode: both;
+       -moz-animation-fill-mode: both;
+        -ms-animation-fill-mode: both;
+         -o-animation-fill-mode: both;
+            animation-fill-mode: both;
+}
+.White > div {
+    animation-name: pulse;
+}
+
+.Black > div {
+    animation-name: pulse2;
+}
+
+[data-player_color="Black"]{
+    color: #FFF;
+}
+
+.stuck{
+    display: none;
+}
+
+[data-set_stuck~="Black"] [data-player_color="Black"] .stuck,
+[data-set_stuck~="White"] [data-player_color="White"] .stuck{
+    display: block;
+}
+
+.Black > div {
+    background-image: -webkit-radial-gradient(46% 43%,ellipse cover,hsla(0, 0%, 29%, 0) 23%,hsla(0, 0%, 0%, 0.25) 80%);
+}
+
+.White > div {
+    background-image: -webkit-radial-gradient(46% 42%,ellipse cover,hsla(0, 0%, 100%, 0) 23%,hsla(0, 0%, 0%, 0.2) 80%);
+}
+
+.Black > div, [data-current_player="Black"] .validMove > div{
+    background-color: hsl(0, 0%, 29%);
+    /* Old browsers*/
+    border-bottom-color: hsla(0, 0%, 4%, 1);
+    border-left-color: hsla(0, 0%, 9%, 1);
+    border-right-color: hsla(0, 0%, 4%, 1);
+    border-top-color: hsla(0, 0%, 10%, 1);
+}
+
+
+ .White > div, [data-current_player="White"] .validMove > div{
+    background-color: #ffffff; /* Old browsers */
+    border-bottom-color: hsla(0, 0%, 15%, 1);
+    border-left-color: hsla(0, 0%, 19%, 1);
+    border-right-color: hsla(0, 0%, 17%, 1);
+    border-top-color: hsla(0, 0%, 21%, 1);
+}
+
+
+.validMove > div {
+    transition: opacity 0.5s, left 0.5s, right 0.5s, top 0.5s, bottom 0.5s;
+    display: block;
+    top: 30%;
+    left: 30%;
+    right: 30%;
+    bottom: 30%;
+    background-image: none;
+    opacity: 0.1;
+}
+
+.validMove:active > div {
+    border: none;
+    opacity: 0.9;
+}
+
+.validMove > div:focus {
+    outline: none;
+    border: 0.1rem solid #D600FF;
+    opacity: 1;
+}
+
+ .validMove:hover > div {
+    top: 16%;
+    left: 16%;
+    right: 16%;
+    bottom: 16%;
+    opacity: 0.4;
+}
+
+.help {
+    opacity: 0.35;
+    background-image: url("../img/speaker_icon.svg");
+    width: 50px;
+    background-size: 60%;
+    background-repeat: no-repeat;
+    background-position: center;
+    height: 50px;
+    background-color: rgba(0,0,0,0);
+    box-shadow: none;
+}
+
+.sound_icon {
+    opacity: 0.35;
+    background-image: url("../img/speaker_icon.svg");
+    width: 50px;
+    background-size: 60%;
+    background-repeat: no-repeat;
+    background-position: center;
+    height: 50px;
+    background-color: rgba(0,0,0,0);
+    box-shadow: none;
+}
+.sound_icon:hover{
+    background-image: url("../img/speaker_icon.svg");
+}
+
+.muted .sound_icon{
+    background-image: url("../img/mute_icon.svg");
+}
+
+h1{
+    font-size: 1.8vmin;
+}
+
+.controls{
+    display: none;
+    position: absolute;
+    background: rgb(247, 247, 247);
+    top: 0;
+    left: 0;
+    right: 0;
+    padding: 6% 8%;
+    border: 1px solid hsl(0, 0%, 61%);
+    text-align: center;
+    border-radius: 8px;
+    bottom: 0;
+    z-index: 3;
+    overflow: auto;
+}
+
+table{
+    width: 90%;
+    margin-bottom: 60px;
+}
+
+.aside1 {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    max-height: 70px;
+    background: rgb(29, 29, 29);
+    text-align: center;
+    font-size: 30px;
+    color: rgb(155, 155, 155);
+    margin: 0;
+    padding: 0;
+    padding-top: 10px;
+    border-top: 1px solid rgb(175, 175, 175);
+    overflow: auto;
+}
+.aside2 {
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+
+button:hover, a:hover {
+    background-image: linear-gradient(hsl(113,87%,39%),hsl(120,65%,39%) 38%,hsl(113,87%,32%));
+    color: white;
+    text-shadow: 0 0 29px hsla(0,100%,100%,0.92);
+}
+
+h1, h2, h3, h4, h5{
+    color: inherit;
+    padding: 0;
+    margin: 0;
+}
+
+.player2[data-toggle], .player2, button.player2:hover {
+    box-shadow: 0 1px 10px hsla(220, 46%, 21%, 0.23),      1px 6px 0 hsla(220, 46%, 22%, 0.08),      1px 2px 4px 1px hsla(0, 0%, 7%, 0.26);
+}
+
+.player2[data-toggle]:active {
+    box-shadow: 0 1px 5px hsla(220, 46%, 21%, 0.43),
+    1px 2px 0 hsla(220, 46%, 22%, 0.44),
+    1px 2px 0 hsla(0, 0%, 7%, 0.16);
+}
+
+.player2 .name:after {
+    font-size: 1vw;
+    content: " press for new game";
+}
+
+td {
+    padding-bottom: 4vmin;
+}
+
+label, aside{
+    font-size: 1.3vw;
+}
+
+/* Portrait */
+@media screen and (orientation:portrait) {
+    .tableContainer{
+        flex-direction: column-reverse;
+        -webkit-flex-direction: column-reverse;
+    }
+    .ad {
+        display: none;
+    }
+
+    .aspectRatioImage, .playerInfo{
+        width: 60vh;
+        max-width: 90vw;
+    }
+}
+/* Landscape */
+@media screen and (orientation:landscape) {
+    .tableContainer{
+        flex-direction: row;
+        -webkit-flex-direction: row;
+    }
+
+    .aspectRatioImage{
+        height: 60vw;
+        max-height: 83vh;
+    }
+}
+@media screen and (max-width: 800px) {
+    #board, .playerInfo, .controls{
+        border-radius: 0;
+    }
+
+    /* Portrait */
+    @media screen and (orientation:portrait) {
+        .aspectRatioImage, .playerInfo{
+            max-width: 100vw;
+        }
+    }
+    /* Landscape */
+    @media screen and (orientation:landscape) {
+        .aspectRatioImage{
+            max-height: 100vh;
+        }
+    }
+}
+
+[data-winner] .restart {
+    display: block;
+}
+
+.restart {
+    display: none;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    z-index: 2;
+    margin-left: -20vmin;
+    width: 40vmin;
+    height: 11vmin;
+    margin-top: -5.5vmin;
+    opacity: 0.3;
+}
+
+.restart:hover {
+    opacity: 1;
+}
+
+[data-opponent="Remote Player"] .messages{
+    display: block;
+}
+
+.messages{
+    display: none;
+    width: 100%;
+    padding: 1vmin;
+}
+
+.logged-in #signinButton,  .logout {
+    display: none;
+}
+.logged-in .logout {
+    display: block;
+}
+
+ol {
+    list-style: none;
+    padding: 0;
+    text-align: left;
+}
+
+.close_aside1, .close_aside1:hover, .close_aside1:active {
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    -webkit-transform: none;
+    font-size: 14px;
+    line-height: 3px;
+    font-weight: bold;
+    background: rgba(255, 255, 255, 0.6);
+}

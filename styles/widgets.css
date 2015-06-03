@@ -1,0 +1,81 @@
+/* Copyright (c) 2012 The Chromium Authors. All rights reserved.
+ * Use of this source code is governed by a BSD-style license that can be
+ * found in the LICENSE file.
+ */
+
+/* This file defines styles for form controls. The order of rule blocks is
+ * important as there are some rules with equal specificity that rely on order
+ * as a tiebreaker. These are marked with OVERRIDE.
+ */
+
+
+
+button,
+input,
+select {
+  background-image: none;
+  border: none;
+}
+
+button{
+  background-image: -webkit-linear-gradient(hsl(0, 0%, 98%), hsl(0, 0%, 98%) 38%, hsl(0, 0%, 95%));
+  box-shadow: 1px 1px 11px hsla(0, 0%, 0%, 0.24);
+}
+
+button,
+input,
+select {
+  border: 1px solid hsla(0, 0%, 0%, 0.02);
+  border-radius: 4px;
+  padding: 1vmin 0;
+  width: 100%;
+}
+
+button {
+  width: 45%;
+}
+
+body.darkTheme button,
+body.darkTheme select,
+body.darkTheme input {
+  background: #141618;
+}
+
+h2 {
+  font-size: 3vmin;
+}
+
+/* Hover **********************************************************************/
+
+table button:hover{
+  background: -webkit-gradient(linear, 0 0, 0 100%, from(hsl(113,87%,39%)), color-stop(0.38, hsl(120,65%,39%)), to(hsl(113,87%,32%)));
+  background: -webkit-linear-gradient(hsl(113,87%,39%), hsl(120,65%,39%) 38%, hsl(113,87%,32%));
+  background: -moz-linear-gradient(hsl(113,87%,39%), hsl(120,65%,39%) 38%, hsl(113,87%,32%));
+  background: -o-linear-gradient(hsl(113,87%,39%), hsl(120,65%,39%) 38%, hsl(113,87%,32%));
+  background: linear-gradient(hsl(113,87%,39%), hsl(120,65%,39%) 38%, hsl(113,87%,32%));
+  color: white;
+  text-shadow: 0 0 29px hsla(0, 100%, 100%, 0.92);
+  box-shadow: 4px 5px 30px hsla(0, 0%, 37%, 0.37);
+}
+
+
+button:focus,
+input:focus,
+select:focus,
+[data-toggle]:focus {
+  outline-color: #F0F;
+  outline-width: 1px;
+  outline-style: solid;
+}
+
+body.darkTheme button:hover,
+body.darkTheme select:hover,
+body.darkTheme input:hover {
+  outline-color: hsla(0, 0%, 100%, 0.08);
+}
+
+
+table input[type='range']{
+    background: #ccc;
+    width: 50%;
+}

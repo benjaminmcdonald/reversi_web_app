@@ -1,0 +1,366 @@
+<!doctype html>
+<!--
+TODO:
+Add invite to game. Will increase spread of game.
+Add Ruby, Classic and Diamond themes
+
+Feedback that the computer is about to move
+
+https://pictonic.co/#
+-->
+
+<html  lang=en manifest="manifest.appcache">
+<head>
+    <link rel="dns-prefetch" href="//code.jquery.com">
+    <link rel="dns-prefetch" href="//cdnjs.cloudflare.com">
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width">
+    <meta name="mobile-web-app-capable" content="yes"/>
+
+    <title>Reversi Web App</title>
+    <meta name="description" content="Click to play this free Reversi app with an easy to see board and intuitive interface. Challenge yourself against an easy, medium or hard computer." />
+    <meta name="author" content="Ben McDonald" />
+    <meta name="keywords" content="Game, Board, Strategy, Fun, Multiplayer, Mind game" />
+
+    <meta property="og:title" content="World Reversi" />
+    <meta property="og:image" content="chrome_store_assets/midpromo.png" />
+    <meta property="og:description" content="Click to play this free Reversi app with an easy to see board and intuitive interface. Challenge yourself against an easy, medium or hard computer." />
+    <meta property="og:url" content="https://yaks.co.nz/reversi/" />
+
+    <meta name="msApplication-ID" content="microsoft.build.PlayReversi" />
+    <meta name="msApplication-PackageFamilyName" content="microsoft.build_8wekyb3d8bbwe" />
+    <meta name="msapplication-TileColor" content="#123456"/>
+    <meta name="msapplication-TileImage" content="img/logo.png"/>
+    <link rel="chrome-webstore-item" href="https://chrome.google.com/webstore/detail/idmhindgonjchndndoceodfmnficpjdg">
+
+    <link href="https://plus.google.com/106918025400837602855" rel="publisher" />
+
+    <meta name="google-signin-clientid" content="1007584255705.apps.googleusercontent.com" />
+    <meta name="google-signin-cookiepolicy" content="single_host_origin" />
+    <meta name="google-signin-callback" content="signinCallback" />
+    <meta name="google-signin-scope" content="https://www.googleapis.com/auth/games" />
+
+    <link href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.0.0/animate.min.css" rel="stylesheet" media="screen">
+    <link rel="shortcut icon" href="/favicon.ico">
+
+    <!-- build:css(.tmp) styles/main.css -->
+    <link rel="stylesheet" href="styles/style.css">
+    <link rel="stylesheet" href="styles/widgets.css">
+    <link rel="stylesheet" href="styles/board.css">
+    <link rel="stylesheet" href="styles/bigbox.css">
+    <!-- endbuild -->
+</head>
+<body>
+    <!--[if lt IE 10]>
+        <p class=chromeframe>Your browser is <em>ancient!</em> <a href="http://browsehappy.com/">Upgrade to a different browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to experience this site.</p>
+
+        <script src="//ajax.googleapis.com/ajax/libs/chrome-frame/1.0.3/CFInstall.min.js"></script>
+        <script>window.attachEvent('onload',function(){CFInstall.check({mode:'overlay'})})</script>
+    <![endif]-->
+    <!--[if lt IE 9]>
+        <script src="/eventShim.js"></script>
+        <script src="bower_components/REM-unit-polyfill/js/rem.min.js"></script>
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <![endif]-->
+    <!--[if lt IE 10]>
+        <style>
+            * {
+                behavior: url(/PIE.htc);
+            }
+        </style>
+    <![endif]-->
+    <!--[if gt IE 7]>
+        <script src="/ieshim.js"></script>
+        <script src="/es5-sham.min.js"></script>
+        <script src="/es5-shim.min.js"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.6.2/html5shiv.js"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/json3/3.2.4/json3.min.js"></script>
+        <script src="//github.com/eligrey/classList.js/raw/master/classList.min.js"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/css3pie/1.0.0/PIE.js"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/flexie/1.0.0/flexie.min.js"></script>
+        <script src="//raw.github.com/fryn/html5slider/master/html5slider.js" defer="true" asyn="true"></script>
+    <![endif]-->
+
+    <!-- Place this asynchronous JavaScript just before your </body> tag -->
+    <script type="text/javascript">
+        (function() {
+        var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+        po.src = 'https://apis.google.com/js/client:plusone.js?onload=ongapiload';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+        })();
+    </script>
+
+    <script type="text/javascript">
+        (function() {
+        var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+        po.src = 'https://apis.google.com/js/plusone.js?onload=onLoadCallback';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+        })();
+    </script>
+
+    <p hidden="true">
+        Reversi is a board game played by two players on a board with 8 rows and 8 columns. Jump over your oppoent's pieces to turn them into your color. The small dark circles on the board show the places that you can move. The objective is to have more pieces than your opponent when no more moves can be played. The four corners of the board are the most valuable positions to have. Give it a try and if you are still not getting it you will have to ask google for help :-)
+
+        Reversi is a fun and challenging game that will strength your mind.
+
+        This box is the color of the pieces that are yours.
+
+        Click here to reset the board or to change the opponent.
+
+        <a title="Use Vector Paint for posters, web graphics or diagrams" href="http://www.vector-paint.com/app">Try Vector Paint</a>
+        <a title="Yaks Design Christchurch" href="http://www.yaks.co.nz/">Christchurch Web Design</a>
+        <a title="Install Vector Paint from the Chrome Store" href="https://chrome.google.com/webstore/detail/vector-paint/hnbpdiengicdefcjecjbnjnoifekhgdo">Try Vector Paint on Chrome</a>
+    </p>
+
+    <div class="aside2">
+        <button class="sound_icon" data-togglebody="muted"></button>
+    </div>
+    <button class="restart">Restart</button>
+
+    <div class="tableContainer">
+        <div>
+            <div class="playerInfo player1 slideInDown animated">
+                <div style="display:table-cell;vertical-align: middle;" data-hover-class="show_count">
+                    <span class="name"></span>
+                    <strong class="stuck">Stuck</strong>
+                    <div class="messages">
+                        <ol>
+                            <li>
+                                Message from Bob
+                            </li>
+                        </ol>
+                        <form id="postmessage">
+                        <input name="message" placeholder="enter message here" type="text" />
+                        </form>
+                    </div>
+                </div>
+
+                <span id="signinButton">
+                    <span
+                        class="g-signin"
+                        data-scope="https://www.googleapis.com/auth/plus.login">
+                    </span>
+                </span>
+            </div>
+        </div>
+        <div id="boardContainer" class="flipInX animated">
+
+            <div style="position:relative;">
+                <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAD0lEQVQIHQEEAPv/AP///wX+Av4DfRnGAAAAAElFTkSuQmCC" class="aspectRatioImage" />
+                <div id="board">
+                    <template id="row_template">
+                        <div class="row"></div>
+                    </template>
+                    <template id="piece_template">
+                        <div class="piece">
+                            <div tabindex="-1">
+                            </div>
+                        </div>
+                    </template>
+                </div>
+                <div class="controls">
+                    <aside>
+                        <a href="https://plus.google.com/106918025400837602855">Copyright &copy; <span itemprop="copyrightHolder" rel="author">Yaks Design</span> 2013. All rights reserved.</a>
+                    </aside>
+                    <br/>
+                    <br/>
+                    New Opponent
+                    <form id="opponent_data">
+                        <table>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        Opponent
+                                    </td>
+                                    <td>
+                                         <select required="true" name="opponent">
+                                            <template id="row_template">
+                                                <option></option>
+                                            </template>
+
+                                            <option value="Another Player">Another Player</option>
+                                            <option selected="true" value="Easy Computer">Easy Computer</option>
+                                            <option value="Medium Computer">Medium Computer</option>
+                                            <option value="Hard Computer">Hard Computer</option>
+                                         </select>
+                                    </td>
+                                </tr>
+                                <tr class="aiSettings">
+                                    <td>
+                                        Computer Color
+                                    </td>
+                                    <td>
+                                         <select name="otherColor">
+                                             <option>Black</option>
+                                             <option>White</option>
+                                         </select>
+                                    </td>
+                                </tr>
+                                <tr class="aiSettings">
+                                    <td>
+                                        Computer Move Delay
+                                    </td>
+                                    <td>
+                                        <label for="computerDelay">Small</label>
+                                        <input id="computerDelay" name="computerDelay" min="30" max="3000" type="range"/>
+                                        <label for="computerDelay">Large</label>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </form>
+                    <button data-toggle="controls" type="button">Cancel</button>
+                    <button class="newGame" type="submit">New Game</button>
+
+                    <!-- <a hidden href="http://en.wikipedia.org/wiki/Reversi#Rules" target="_blank"><button>How to Play</button></a> -->
+                </div>
+            </div>
+        </div>
+        <div>
+            <button type="button" class="playerInfo player2 slideInDown animated" data-toggle="controls" tabstop="50" >
+                    <span class="name"></span>
+                    <strong class="stuck">Stuck</strong>
+            </button>
+        </div>
+    </div>
+
+
+    <!-- build:js /bower_components/lodash/dist/lodash.compat.min.js -->
+    <script src="bower_components/lodash/dist/lodash.compat.min.js"></script>
+    <!-- endbuild -->
+
+    <script src="scripts/reversi_game.js"></script>
+
+    <!-- build:js /main.js -->
+    <script src="scripts/combatablityCode.js"></script>
+    <script src="scripts/shims/es6-shim.js"></script>
+    <script src="scripts/shims/HTMLTemplates-shim.js"></script>
+    <script src="scripts/shims/Object.observe.poly.js"></script>
+
+    <script src="bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="bower_components/underscore.string/dist/underscore.string.min.js"></script>
+
+    <script src="scripts/dom_element_tools.js"></script>
+    <script src="scripts/ai_players.js"></script>
+    <script src="scripts/reversi_game_view.js"></script>
+    <!-- endbuild -->
+
+<!--
+    <script src="/_ah/channel/jsapi"></script>
+    <script src="/tailbone.json.js"></script>
+    <script src="/tailbone.models.js"></script>
+     -->
+    <script type="text/javascript">
+        function ongapiload () {
+            console.log('ongapiload');
+            gapi.client.load('games','v1',function(response) {
+                console.log(response);
+            });
+        }
+
+
+
+
+        // var Game = new tailbone.Model("games");
+        // var _userData;
+
+        // tailbone.User.get('me', function (userData) {
+        //     document.body.classList.add('loddedIn');
+        //     document.querySelector('.logout').setAttribute('href', '/api/logout?url=/api/users/me');
+        //     _userData = userData;
+        //     users = tailbone.User.query();
+        // });
+
+        // $('.login').click(function () {
+        //     tailbone.User.login(function (userData) {
+        //         document.body.classList.add('loddedIn');
+        //         document.querySelector('.logout').setAttribute('href', '/api/logout?url=/api/users/me');
+        //         _userData = userData;
+        //         users = tailbone.User.query();
+        //     });
+        // });
+
+
+            // var waitingUsers = [];
+
+            // users.forEach(function (u) {
+            //     if (u.WaitingForGame) {
+            //         waitingUsers.push(u);
+            //     }
+            // })
+
+            // if (waitingUsers.length) {
+            //     console.log('No waiting players');
+            //     var game = new Game();
+            //     game.players = [_userData.Id, waitingUsers[0].Id];
+            //     game.owners = [_userData.Id, waitingUsers[0].Id];
+            //     game.date = Date.now();
+            //     game.whiteMoves = [];
+            //     game.blackMoves = [];
+            //     game.$save();
+            // } else {
+            //     console.log('No waiting players');
+            //     _userData.WaitingForGame = Date.now();
+            //     _userData.$save();
+            // }
+
+            // users = tailbone.User.query();
+
+            // waitingUsers[0];
+
+        // var games = Game.query()
+        // var myGame;
+        // games.onchange = function() {
+        //     $('.games').html();
+        //     games.forEach(function(item, idx) {
+        //         var $option = $('<option value="' + item.id + '">Game ' + idx + '<//option>');
+        //         $('.games').append($option);
+
+        //         if (item.owners && item.owners.indexOf(_userData.Id) === -1 ) {
+        //             myGame = item;
+        //         }
+        //     });
+
+        //     if (myGame) {
+        //         console.log("Game found!", myGame);
+        //     }
+        // };
+
+
+
+
+        // tailbone.User.onchange = function() {
+        //     $('.games').html();
+        //     tailbone.User.forEach(function(item, idx) {
+        //         var $option = $('<option value="' + item.id + '">Game ' + idx + '<//option>');
+        //         $option.click(function (e) {
+        //             console.log(e.delegateTarget.value);
+        //         });
+        //         $('.games').append($option);
+        //     });
+        // };
+
+
+
+
+
+    </script>
+
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/humane-js/3.0.6/humane.min.js" async="true"></script>
+    <!--
+    <script src="http://cdn.peerjs.com/0/peer.min.js" async="true"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/prefixfree/1.0.7/prefixfree.min.js" async="true"></script>
+ -->
+    <script>
+        var _gaq=[['_setAccount','UA-30677708-1'],['_trackPageview']];
+        (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+        g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+        s.parentNode.insertBefore(g,s)}(document,'script'));
+
+        window["_gaq"] = _gaq
+        _gaq.push(['_trackPageview']);
+    </script>
+</body>
+</html>
